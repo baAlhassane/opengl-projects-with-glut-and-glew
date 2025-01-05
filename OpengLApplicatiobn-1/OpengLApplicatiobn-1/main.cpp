@@ -2,7 +2,7 @@
 #include <glut.h>
 #include <stdio.h>
 #include "triangle.h"
-
+#include "cube.h"
 
 
 int main(int argc, char* argv[]) {
@@ -11,20 +11,24 @@ int main(int argc, char* argv[]) {
     //Glut initialisation 
     glutInit(&argc, argv);
 
-    //Windows Set for triangle instance
-    triangle t;
-    t.initWindows();
+    cube c;
+
+    // init windows
+    c.initWindows();
+
+    // init GL
+    c.initOpenGL();
+
+    // display object
+    glutDisplayFunc(cube::display);
     
-    //set opengl mode transformation
-    t.initOpengl();
 
-    // call display to dispaly the windows  
-    glutDisplayFunc(triangle::display);
-
-    // call the loop like glutMainLoop or  glutSwapBuffers(); // Échanger les tampons
-
-    triangle::loop();
- 
+    // loop
+    c.loop();
     return 0;
 }
+
+
+
+
 
