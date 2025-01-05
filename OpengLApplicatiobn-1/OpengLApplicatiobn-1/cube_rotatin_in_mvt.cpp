@@ -1,15 +1,20 @@
-#include "cube_rotation_after_set_depth_test.h"
+#include "cube_rotatin_in_mvt.h"
 #include<glew.h>
 #include<glut.h>
 
-void cube_rotation_after_set_depth_test::initWindows() {
+
+
+float cube_rotatin_in_mvt::angle = 0;
+
+
+void cube_rotatin_in_mvt::initWindows() {
     glutInitDisplayMode(GLUT_RGB | GL_DOUBLE | GLUT_DEPTH);
     glutInitWindowSize(600, 500);
     glutCreateWindow("static cube  windows");
 
 }
 
-void cube_rotation_after_set_depth_test::initOpenGL() {
+void cube_rotatin_in_mvt::initOpenGL() {
     glClearColor(0.0, 0.0, 0.0, 1.0f);//coleur de foind noire noire
     glEnable(GL_DEPTH_TEST);
     glMatrixMode(GL_PROJECTION);
@@ -20,13 +25,13 @@ void cube_rotation_after_set_depth_test::initOpenGL() {
     glLoadIdentity();
 }
 
-void cube_rotation_after_set_depth_test::display() {
+void cube_rotatin_in_mvt::display() {
     //glEnable(GL_DEPTH_TEST);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);// appelle automatique glClearColor
     // glRotatef(45, 1.0f, 1.0f, 0.0f); // Rotation pour voir plusieurs faces
     glLoadIdentity();
     glTranslatef(0.0f, 0.0f, -10.0);
-    glRotatef(60.0, 1.0, 1.0, 1.0);
+    glRotatef(angle, 1.0, 1.0, 1.0);
 
     // dans display glclear; glLoadIdentity;gltTranslate;
     // dans reshape glMatrixMode(Projection);glLoadIdentity;glutPerspective; glMatrixMode(LodevelView)
@@ -72,35 +77,19 @@ void cube_rotation_after_set_depth_test::display() {
     glutSwapBuffers();
 }
 
-void cube_rotation_after_set_depth_test::loop() {
+void cube_rotatin_in_mvt::loop() {
     glutMainLoop();
 }
 
+void cube_rotatin_in_mvt::timer(int) {
 
-/*
-
-
-
-int main(int argc, char* argv[]) {
-
-
-    //Glut initialisation
-    glutInit(&argc, argv);
-
-    cube_rotation_after_set_depth_test c;
-
-    // init windows
-    c.initWindows();
-
-    // init GL
-    c.initOpenGL();
-
-    // display object
-    glutDisplayFunc(cube_rotation_after_set_depth_test::display);
-
-
-    // loop
-    c.loop();
-    return 0;
+    glutPostRedisplay();
+    glutTimerFunc(1000 / 60, timer, 0);
+    angle += 0.8;
+    if (angle > 360.0) {
+        angle = angle - 360.0;
+    }
 }
-*/
+
+
+

@@ -1,8 +1,7 @@
 #include <glew.h>
 #include <glut.h>
 #include <stdio.h>
-#include "triangle.h"
-#include "cube_rotation_after_set_depth_test.h"
+#include "cube_rotatin_in_mvt.h"
 
 
 int main(int argc, char* argv[]) {
@@ -11,7 +10,7 @@ int main(int argc, char* argv[]) {
     //Glut initialisation 
     glutInit(&argc, argv);
 
-    cube_rotation_after_set_depth_test c;
+    cube_rotatin_in_mvt c;
 
     // init windows
     c.initWindows();
@@ -20,7 +19,10 @@ int main(int argc, char* argv[]) {
     c.initOpenGL();
 
     // display object
-    glutDisplayFunc(cube_rotation_after_set_depth_test::display);
+    glutDisplayFunc(cube_rotatin_in_mvt::display);
+
+    //timer
+    glutTimerFunc(0, cube_rotatin_in_mvt::timer, 0);
     
 
     // loop

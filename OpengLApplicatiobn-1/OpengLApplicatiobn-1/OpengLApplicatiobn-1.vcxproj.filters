@@ -30,6 +30,9 @@
     <ClCompile Include="cube_rotation_after_set_depth_test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="cube_rotatin_in_mvt.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="triangle.h">
@@ -42,6 +45,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="cube_rotation_after_set_depth_test.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cube_rotatin_in_mvt.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
