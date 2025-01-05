@@ -134,4 +134,28 @@ void cube::loop() {
     glutMainLoop();
 }
 
+// Test of this code 
+//int main(int argc, char* argv[]) {
+//
+//
+//    //Glut initialisation 
+//    glutInit(&argc, argv);
+//
+//    cube c;
+//
+//    // init windows
+//    c.initWindows();
+//
+//    // init GL
+//    c.initOpenGL();
+//
+//    // display object
+//    glutDisplayFunc(cube::display);
+//
+//
+//    // loop
+//    c.loop();
+//    return 0;
+//}
+
 

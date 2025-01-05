@@ -2,7 +2,7 @@
 #include <glut.h>
 #include <stdio.h>
 #include "triangle.h"
-#include "cube.h"
+#include "cube_with_glut_depth.h"
 
 
 int main(int argc, char* argv[]) {
@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     //Glut initialisation 
     glutInit(&argc, argv);
 
-    cube c;
+    cube_with_glut_depth c;
 
     // init windows
     c.initWindows();
@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
     c.initOpenGL();
 
     // display object
-    glutDisplayFunc(cube::display);
+    glutDisplayFunc(cube_with_glut_depth::display);
     
 
     // loop
