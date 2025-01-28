@@ -132,13 +132,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Environnement.cpp" />
+    <ClCompile Include="environnement\Environnement.cpp" />
+    <ClCompile Include="joueur\Joueur.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="wall\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Environnement.h" />
-    <ClInclude Include="Wall.h" />
+    <ClInclude Include="environnement\Environnement.h" />
+    <ClInclude Include="joueur\Joueur.h" />
+    <ClInclude Include="wall\Wall.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

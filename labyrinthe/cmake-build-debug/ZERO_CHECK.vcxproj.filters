@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\alhas\Documents\opengl\firstFreeglutSolution\labyrinthe\cmake-build-debug\CMakeFiles\a96dc1da09380171241dca5832f24b65\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{6EA5CEF0-BE4A-304A-B4C4-039FCDD16D4B}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

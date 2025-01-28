@@ -1,0 +1,10 @@
+^C:\USERS\ALHAS\DOCUMENTS\OPENGL\FIRSTFREEGLUTSOLUTION\LABYRINTHE\CMAKE-BUILD-DEBUG-MINGW64\CMAKEFILES\5B581A328CA2F5ED27B52886AC264CD1\GENERATE.STAMP.RULE
+setlocal
+C:\Users\alhas\AppData\Local\Programs\CLion\bin\cmake\win\x64\bin\cmake.exe -SC:/Users/alhas/Documents/opengl/firstFreeglutSolution/labyrinthe -BC:/Users/alhas/Documents/opengl/firstFreeglutSolution/labyrinthe/cmake-build-debug-mingw64 --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/alhas/Documents/opengl/firstFreeglutSolution/labyrinthe/cmake-build-debug-mingw64/firstFreeglutSolution.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

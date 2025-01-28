@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="C:\Users\alhas\Documents\opengl\firstFreeglutSolution\labyrinthe\labyrinthe\main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\alhas\Documents\opengl\firstFreeglutSolution\labyrinthe\labyrinthe\Environnement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="C:\Users\alhas\Documents\opengl\firstFreeglutSolution\labyrinthe\labyrinthe\Wall.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\alhas\Documents\opengl\firstFreeglutSolution\labyrinthe\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{300D4D0A-25E3-3844-B727-739D6AA8FE7E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

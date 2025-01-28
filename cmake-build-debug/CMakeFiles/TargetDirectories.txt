@@ -1,0 +1,3 @@
+C:/Users/alhas/Documents/opengl/firstFreeglutSolution/cmake-build-debug/CMakeFiles/firstFreeglutSolution.dir
+C:/Users/alhas/Documents/opengl/firstFreeglutSolution/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/alhas/Documents/opengl/firstFreeglutSolution/cmake-build-debug/CMakeFiles/rebuild_cache.dir
