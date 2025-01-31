@@ -5,8 +5,13 @@
 #include<iostream> 
 #include<vector>
 
+//#include "Environnement.h"
+
+//#include "../wall/Wall.h"
+//#include "../joueur/Joueur.h";
 #include "Environnement.h"
-#include "../joueur/Joueur.h";
+
+
 
 void Environnement::iniWindows() {
   
@@ -39,6 +44,7 @@ void Environnement::initOpenGl() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glOrtho(0, WIDTH, HEIGHT, 0, -1, 1); // Les coordonnées correspondent à i, j
+	//glOrtho(0, WIDTH, 0, HEIGHT, -1, 1); // Les coordonnées correspondent à i, j
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 }
@@ -56,8 +62,8 @@ void Environnement::loop() {
 
 
 std::vector < std::vector<char>> Environnement::matrice;;
-int Environnement::HEIGHT = 0;
-int Environnement::WIDTH = 0;
+//int Environnement::HEIGHT = 0;
+//int Environnement::WIDTH = 0;
 
 
 /*
@@ -133,16 +139,21 @@ void Environnement::displayLab() {
 	
 	glFlush();
 	
-	joueur1.dessinerJoueur();
+	//joueur1.dessinerJoueur();
 	std::cout << " \nin Environnement::displayLab() fin \n ";
 
 }
 
+// Environnement::Environnement(const Wall& wall) works well. We add the  joueur1(*this) to ref the current car 
+// The Joueur and Environnement hawe knaow the relation of composition. 
+// Beacuse un the joueur class we refrence environnement and build joueur by the the references env. 
+Environnement::Environnement(const Wall& wall): wallEnv(wall), HEIGHT(wall.getHeight()), WIDTH(wall.getWidth()), joueur1(*this) {
 
-Environnement::Environnement(const Wall& wall) {
-	wallEnv =wall;
-	WIDTH = wall.getWidth();
-	HEIGHT = wall.getHeight();
+	//wallEnv =wall;
+	//WIDTH =  wall.getWidth();
+	//HEIGHT = wall.getHeight();
+
+	
 	matrice.resize(HEIGHT);
 	std::cout << " ----- \n wall.data[i][j] in Environnement(const Wall& wall) \n";
 	std::cout << "  WIDTH= "<<WIDTH<< std::endl;
@@ -176,10 +187,32 @@ Environnement::Environnement(const Wall& wall) {
 void Environnement::display() {
 
 	displayLab();
-	glFlush();
+	joueur1.dessinerJoueur();
+	//glFlush();
+	glutSwapBuffers();
 	
 
 }
+
+void Environnement::specialKeyPressed(int key, int x, int y) {
+	switch (key) {
+
+	case GLUT_KEY_UP :   joueur1.moveToUp(); break;
+	case GLUT_KEY_DOWN:  joueur1.moveToDown(); break;
+	case GLUT_KEY_LEFT:  joueur1.moveToLeft(); break;
+	case GLUT_KEY_RIGHT: joueur1.moveToRight(); break;
+	}
+	glutPostRedisplay();
+}
+
+Environnement* Environnement::currentInstance = nullptr;
+
+void Environnement::specialKeyWrapper(int key, int x, int y) {
+	if (currentInstance) {
+		currentInstance->specialKeyPressed(key, x, y);
+	}
+}
+
 
 Environnement::~Environnement() {
 }
@@ -191,3 +224,4 @@ void Environnement::redimLab(int x, int y){
 	glLoadIdentity();
 	gluOrtho2D(0.0, (double)WIDTH, (double)HEIGHT, 0.0);
 }
+

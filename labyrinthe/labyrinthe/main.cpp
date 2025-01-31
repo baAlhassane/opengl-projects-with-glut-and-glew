@@ -10,13 +10,24 @@
 
 // Wrapper global pour std::function
 std::function<void()> displayFunction;
-
+//std::function<void()> displayFunctionClavier;
 // Fonction wrapper pour GLUT
 void glutDisplayWrapper() {
 	if (displayFunction) {
 		displayFunction();
 	}
+
 }
+
+Environnement* envPtr;
+void glutSpecialWrapper(int key, int x, int y) {
+	if (envPtr) {
+		envPtr->specialKeyPressed(key, x, y);
+	}
+}
+
+
+
 
 
 
@@ -48,6 +59,7 @@ int main(int argc, char* argv[]) {
 
 		//Windows Set for triangle instance
 		Environnement env(wall);
+		envPtr = &env;
 		
 		env.iniWindows();
 
@@ -56,14 +68,21 @@ int main(int argc, char* argv[]) {
 
 		// Associer la méthode de l'objet à std::function
 		displayFunction = [&env]() { env.display(); };
+		glutDisplayFunc(glutDisplayWrapper);
+		
 
 		// Associer le wrapper à glutDisplayFunc
-		glutDisplayFunc(glutDisplayWrapper);
+		
 
 		// call display to dispaly the windows  
 		//glutDisplayFunc(Environnement::display);
 
 		// call the loop like glutMainLoop or  glutSwapBuffers(); // Échanger les tampons
+
+		//envPtr = &env;
+		glutSpecialFunc(glutSpecialWrapper);
+		 // Associer un wrapper pour les touches spéciales avec lambda
+		
 
 		//glutReshapeFunc(Environnement::redimLab);
 		Environnement::loop();
