@@ -1,15 +1,10 @@
 
 #include<glew.h>
 #include<glut.h>
-
 #include<iostream> 
 #include<vector>
-
-//#include "Environnement.h"
-
-//#include "../wall/Wall.h"
-//#include "../joueur/Joueur.h";
 #include "Environnement.h"
+#include "../EnnemiVert.h"
 
 
 
@@ -17,29 +12,13 @@ void Environnement::iniWindows() {
   
 	glutInitWindowPosition(10, 10);
 	glutInitWindowSize(500, 500);
-
-	glutInitDisplayMode(GLUT_RGBA | GLUT_SINGLE) ;
-
+	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE) ;
 	glutCreateWindow(" labyrinthe ");
 }
 
-
 void Environnement::initOpenGl() {
-	/*
-	* Lecture avec des coordées réels dans [-1 , 1]
-	glClearColor(1.0, 1.0, 1.0, 1.0);
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	//glOrtho(-1, 1, -1, 1, -1,1);
-	glOrtho(0, WIDTH, HEIGHT, 0, -1, 1); // Les coordonnées correspondent à i, j
-	glMatrixMode(GL_MODELVIEW);// Here is not necessary because we havent camero o objet to place and display
-	glLoadIdentity();
-	*/
-	
-
 	glClearColor(1.0, 1.0, 1.0, 1.0); // Couleur de fond (blanc)
 	glViewport(0, 0, 500, 500); // Adapter à la taille de la fenêtre
-
 	// Projection orthographique
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -49,62 +28,14 @@ void Environnement::initOpenGl() {
 	glLoadIdentity();
 }
 
-
 void Environnement::loop() {
-
-
 
 	glutMainLoop();
 
 }
+void Environnement::freeMemorybeforeExit() {
 
-
-
-
-std::vector < std::vector<char>> Environnement::matrice;;
-//int Environnement::HEIGHT = 0;
-//int Environnement::WIDTH = 0;
-
-
-/*
-void Environnement::displayLab() {
-	glClear(GL_COLOR_BUFFER_BIT);  // Effacer l'écran avec la couleur de fond
-	glColor3d(0.5, 0.5, 0.5);     // Couleur des murs
-
-	std::cout << " \nin Environnement::displayLab() debut \n ";
-
-	glBegin(GL_QUADS); // Démarrer la définition des quadrilatères
-
-	for (int i = 0; i < HEIGHT; i++) {
-		for (int j = 0; j < WIDTH; j++) {
-			std::cout << matrice[i][j];
-
-			if (matrice[i][j] == '0') {
-				// Convertir les coordonnées pour l'espace [-1, 1]
-				double x1 = -1.0 + (2.0 * j) / WIDTH;    // Coordonnée x de gauche
-				double x2 = -1.0 + (2.0 * (j + 1)) / WIDTH; // Coordonnée x de droite
-				double y1 = 1.0 - (2.0 * i) / HEIGHT;   // Coordonnée y du haut
-				double y2 = 1.0 - (2.0 * (i + 1)) / HEIGHT; // Coordonnée y du bas
-
-				// Dessiner le quadrilatère
-				glVertex2d(x1, y1);
-				glVertex2d(x1, y2);
-				glVertex2d(x2, y2);
-				glVertex2d(x2, y1);
-			}
-		}
-		std::cout << std::endl;
-	}
-
-	glEnd(); // Fin de la définition des quadrilatères
-
-	std::cout << " \nin Environnement::displayLab() fin \n ";
-	glFlush(); // S'assurer que le dessin est exécuté immédiatement
 }
-
-*/
-
-
 void Environnement::displayLab() {
 
 	glColor3d(0.5, 0.5, 0.5);
@@ -122,88 +53,133 @@ void Environnement::displayLab() {
 				glVertex2d(j + 1, i + 1);  // Coin bas-droit
 				glVertex2d(j + 1, i);      // Coin haut-droit
 				
-				//glVertex2d(3, 0);          // Coin haut-gauche
-				//glVertex2d(3,  1);      // Coin bas-gauche
-				//glVertex2d(3 + 1, 0 + 1);  // Coin bas-droit
-				//glVertex2d(3 + 1, 0);      // Coin haut-droit
-				//glVertex2d(i, j);
-				//glVertex2d(i, j + 1);
-				//glVertex2d(i + 1, j + 1);
-				//glVertex2d(i + 1, j);	
 			}	
 		}
 		
 		std::cout << std::endl;
 	}
 	glEnd();
-	
-	glFlush();
-	
-	//joueur1.dessinerJoueur();
+	glPushMatrix();
+	glTranslated(ExitC + 3.5, ExitL + 0.5, 0.0);
+	glColor3d(0.3, 1.0, 0.3); //green color
+	//draw many quads with different side or size.
+	for (double size = 0.1; size < 1.0; size += 0.2) {
+		glutWireCube(size);
+	}
+	glPopMatrix();
 	std::cout << " \nin Environnement::displayLab() fin \n ";
+}
+
+void Environnement::addJoueur(std::unique_ptr<PersonageBase> joueur, int posL, int posC) {
+	joueur->setPosL(posL);
+	joueur->setPosC(posC);
+
+	joueurs.push_back(std::move(joueur));
 
 }
 
-// Environnement::Environnement(const Wall& wall) works well. We add the  joueur1(*this) to ref the current car 
-// The Joueur and Environnement hawe knaow the relation of composition. 
-// Beacuse un the joueur class we refrence environnement and build joueur by the the references env. 
-Environnement::Environnement(const Wall& wall): wallEnv(wall), HEIGHT(wall.getHeight()), WIDTH(wall.getWidth()), joueur1(*this) {
 
-	//wallEnv =wall;
-	//WIDTH =  wall.getWidth();
-	//HEIGHT = wall.getHeight();
+//int indexJoueurActif = 0; // Par défaut, on sélectionne le premier personnage
 
+void Environnement::changerJoueurActif() {
+	if (!joueurs.empty()) {
+		indexJoueurActif = (indexJoueurActif + 1) % joueurs.size(); // Passer au joueur suivant
+		std::cout << "Joueur actif changé : " << indexJoueurActif << std::endl;
+	}
+}
+
+Environnement::Environnement(const Wall& wall): wallEnv(wall), HEIGHT(wall.getHeight()), WIDTH(wall.getWidth()),
+ matrice(wall.getDatav()) {
 	
-	matrice.resize(HEIGHT);
 	std::cout << " ----- \n wall.data[i][j] in Environnement(const Wall& wall) \n";
 	std::cout << "  WIDTH= "<<WIDTH<< std::endl;
 	std::cout << "  HEIGHT "<<HEIGHT <<std::endl;;
-	//std::vector<char> v;
+	
 	for (int i = 0; i < HEIGHT; i++) {
 		for (int j = 0; j < WIDTH; j++) {
-			//std::cout << wall.data[i][j] ;
-			matrice[i].push_back(wall.data[i][j]);
-
+			std::cout <<"  wallEnv.getDatav()[i][j] : " << wallEnv.getDatav()[i][j];
 			switch (matrice[i][j]) {
-
-			case 'j':
-			case 'J': {
-				joueur1.setPosL(i);
-				joueur1.setPosC(j);
+			  case 'j':
+			  case 'J': {
 				break;
 			}
 			}
 	
 		}
-		
-		//std::cout <<" ---------- " << i <<std::endl;
-
 
 	}
-
-	std::cout << "___________________________ \n";
+	std::cout << "Instance Environnement initialisée, adresse : " << this << std::endl;
 }
+
 
 void Environnement::display() {
 
 	displayLab();
-	joueur1.dessinerJoueur();
+
+	int i = 0;
+	for (auto& joueur : joueurs) {
+		++i;
+		joueur->dessinerJoueur(i); // Appelle la méthode polymorphique
+	}
+	
+
+	//joueur1->dessinerJoueur();
 	//glFlush();
+	
 	glutSwapBuffers();
+	//currentInstance->timer(500000);
 	
 
 }
+void Environnement::testVictoire() {
+
+
+	for (auto& joueur : joueurs) {
+		//joueur->dessinerJoueur(); // Appelle la méthode polymorphique}
+
+		if (joueur->getPosC() == 3 && joueur->getPosL() == 0) {
+			display();
+			std::cout << " joueur1.getPosC() =  " << joueur->getPosC() << " joueur.getPosL() =  " << joueur->getPosL() << std::endl;
+			std::cout << "Game over ! You win !!!" << std::endl;
+			system("pause");
+			exit(1);
+		}
+	}
+}
+
 
 void Environnement::specialKeyPressed(int key, int x, int y) {
-	switch (key) {
-
-	case GLUT_KEY_UP :   joueur1.moveToUp(); break;
-	case GLUT_KEY_DOWN:  joueur1.moveToDown(); break;
-	case GLUT_KEY_LEFT:  joueur1.moveToLeft(); break;
-	case GLUT_KEY_RIGHT: joueur1.moveToRight(); break;
+	if (joueurs.empty()) return;
+	std::cout << "Touche appuyée: " << key << std::endl;
+	std::cout << "Touche appuyée : (x,y) = " << x <<" , "  << y << std::endl;
+	// Obtenir le joueur actif
+	auto& personnageActif = joueurs[indexJoueurActif];
+	if (auto ptrJoueur = dynamic_cast<Joueur*>(personnageActif.get())) {
+		std::cout << "C'est un Joueur !" << std::endl;
+		switch (key) {
+		case GLUT_KEY_UP:  personnageActif->moveToUp(); break;
+		case GLUT_KEY_DOWN:  personnageActif->moveToDown(); break;
+		case GLUT_KEY_LEFT:  personnageActif->moveToLeft(); break;
+		case GLUT_KEY_RIGHT:   personnageActif->moveToRight(); break;
+		case GLUT_KEY_F1:  changerJoueurActif(); break;  // Changer de joueur avec F1
+		}
+		
+		testVictoire();
+		glutPostRedisplay();
+		
 	}
-	glutPostRedisplay();
-}
+
+
+	
+
+
+	}
+		
+
+	
+		
+
+
 
 Environnement* Environnement::currentInstance = nullptr;
 
@@ -212,6 +188,45 @@ void Environnement::specialKeyWrapper(int key, int x, int y) {
 		currentInstance->specialKeyPressed(key, x, y);
 	}
 }
+ 
+
+ void Environnement::glutDisplayFuncWrapper() {
+	 if (currentInstance) {
+		 currentInstance->display();
+	 }
+
+}
+
+
+ void Environnement::glutTimerWrapper(int v) {
+	 if (currentInstance) {
+		 currentInstance->timer(v);
+	 }
+
+
+
+ }
+
+
+
+ int Environnement::TIMER_MILLIS = 500;
+
+ void Environnement::timer(int v) {
+	 if (joueurs.empty()) return;
+
+	 // Boucle sur tous les joueurs pour déplacer uniquement les ennemis
+	 for (auto& joueur : joueurs) {
+		 if (auto ennemi = dynamic_cast<EnnemiVert*>(joueur.get())) {
+			 ennemi->deplacerEnnemi();
+		 }
+	 }
+
+	 testVictoire();
+	 glutPostRedisplay();
+	 const int v1 = v;
+	 // Relance le timer pour un prochain appel
+	 glutTimerFunc(TIMER_MILLIS, glutTimerWrapper, 0);
+ }
 
 
 Environnement::~Environnement() {

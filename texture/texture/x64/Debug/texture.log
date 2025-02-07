@@ -1,2 +1,3 @@
-﻿  main.cpp
+﻿  echequier.cpp
+C:\Users\alhas\Documents\opengl\firstFreeglutSolution\texture\texture\echequier.cpp(11,27): warning C4554: '^': check operator precedence for possible error; use parentheses to clarify precedence
   texture.vcxproj -> C:\Users\alhas\Documents\opengl\firstFreeglutSolution\texture\x64\Debug\texture.exe

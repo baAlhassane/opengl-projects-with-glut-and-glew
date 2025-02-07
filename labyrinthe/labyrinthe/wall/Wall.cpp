@@ -42,8 +42,11 @@ void Wall::loadFile(const char* fileName) {
         // Lire les données du fichier
         std::cout << "\nData[i] in lecture file\n";
         for (int i = 0; i < heigth; i++) {
+            matrice.resize(heigth);
             for (int j = 0; j < width; j++) {
+               
                 f >> data[i][j];  // Lire chaque caractère dans le tableau
+                matrice[i].push_back(data[i][j]);
             }
         }
     }
@@ -69,9 +72,13 @@ int Wall::getWidth() const {
 char** Wall::getData() {
     return data;
 }
+//std::vector<std::vector<char >> Wall::matrice;
 
 
-
+std::vector<std::vector<char>>Wall::getDatav() const{
+ 
+    return matrice;
+}
 
 
 

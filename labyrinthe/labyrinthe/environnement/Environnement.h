@@ -4,58 +4,53 @@
 #include "../wall/Wall.h"
 #include "Environnement.h"
 #include "../joueur/Joueur.h"
+//class Joueur;
+#include "../PersonageBase.h"
 
-class Joueur;
 
-class Environnement
-{
+class PersonageBase;
+class Environnement{
 private:
-	
-	/*int HEIGHT;
-	  int WIDTH;
-	 Joueur joueur1*/;
 	 Wall wallEnv;
 	 int HEIGHT;
 	 int WIDTH;
-	 
-	 
-	 static std::vector<std::vector<char>> matrice;
-	 Joueur joueur1;  // Déclaré après HEIGHT et WIDTH
+	 int ExitC; // exit point de sortie
+	 int  ExitL;
+	 std::vector<std::vector<char>> matrice;
+	 std::unique_ptr<PersonageBase> joueur1;
+	 std::vector<std::unique_ptr<PersonageBase>> joueurs;
+	 static int TIMER_MILLIS;
+		
+		 
 
-
+	 
 public:
 	void iniWindows();
 	void initOpenGl();
 	void redimLab(int x, int y);
     void displayLab();
 	void display();
-	//void labyKeybord(int key, int x, int y);
 	void specialKeyPressed(int key, int x, int y);
-	void specialKeyWrapper(int key, int x, int y);
+	static void specialKeyWrapper(int key, int x, int y);
 	static Environnement* currentInstance;
 	static void loop();
-	//Wall wallEnv;
-	
+	void addJoueur(std::unique_ptr<PersonageBase> joueur, int posL, int posC);
+	int indexJoueurActif = 0; // Par défaut, on sélectionne le premier personnage
+	void changerJoueurActif(); // Nouvelle méthode pour changer de joueur
+	void testVictoire();
+	static void glutDisplayFuncWrapper();
+	 void timer(int v);
+	static void glutTimerWrapper(int v);
 
-
-
-	//static std::vector<std::vector<char>> matrice;
-	///*int HEIGHT;
- //     int WIDTH;
-	// Joueur joueur1*/;
-
-	// int HEIGHT;
-	// int WIDTH;
-	// Wall wallEnv;
-	// Joueur joueur1;  // Déclaré après HEIGHT et WIDTH
-
+	void freeMemorybeforeExit();
 	int getHEIGHT() const {
 		return HEIGHT;
 	}
 	int getWIDTH() const {
 		return WIDTH;
 	}
-	std::vector<std::vector<char>> getMatrice() {
+	  std::vector<std::vector<char>> getMatrice() const  {
+
 		return matrice;
 	}
 

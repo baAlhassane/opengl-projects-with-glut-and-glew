@@ -2,15 +2,17 @@
 #include<glut.h>
 #include<iostream>
 #include <stdio.h>
-
+#include "joueur/Joueur.h"
 #include "wall/Wall.h"
 #include "environnement/Environnement.h"
-
+#include "joueur/joueur.h"
+#include "EnnemiVert.h"
 #include <functional>
+#include<memory>
 
 // Wrapper global pour std::function
 std::function<void()> displayFunction;
-//std::function<void()> displayFunctionClavier;
+
 // Fonction wrapper pour GLUT
 void glutDisplayWrapper() {
 	if (displayFunction) {
@@ -21,10 +23,10 @@ void glutDisplayWrapper() {
 
 Environnement* envPtr;
 void glutSpecialWrapper(int key, int x, int y) {
-	if (envPtr) {
-		envPtr->specialKeyPressed(key, x, y);
+	if (envPtr) {		envPtr->specialKeyPressed(key, x, y);
 	}
 }
+
 
 
 
@@ -59,35 +61,40 @@ int main(int argc, char* argv[]) {
 
 		//Windows Set for triangle instance
 		Environnement env(wall);
-		envPtr = &env;
+		//Joueur joueur1
 		
+		
+		env.addJoueur(std::make_unique<Joueur>(env), 1, 0);  // Premier joueur
+		env.addJoueur(std::make_unique<Joueur>(env), 3, 5);  // Deuxième joueur, position différente
+		env.addJoueur(std::make_unique<Joueur>(env),5 , 4);
+		//env.addJoueure(std::make_unique<EnemiBase>(env));
+		env.addJoueur(std::make_unique<Joueur>(env), 1,6 );  // Premier joueur
+		env.addJoueur(std::make_unique<EnnemiVert>(env),6 , 1);
+		//env.addJoueur(std::move(std::make_unique<EnnemiVert>(env)), 2, 3);
+
 		env.iniWindows();
 
 		//set opengl mode transformation
 		env.initOpenGl();
 
 		// Associer la méthode de l'objet à std::function
-		displayFunction = [&env]() { env.display(); };
-		glutDisplayFunc(glutDisplayWrapper);
-		
+		//displayFunction = [&env]() { env.display(); };
+		//glutDisplayFunc(glutDisplayWrapper);
 
-		// Associer le wrapper à glutDisplayFunc
-		
-
-		// call display to dispaly the windows  
-		//glutDisplayFunc(Environnement::display);
-
-		// call the loop like glutMainLoop or  glutSwapBuffers(); // Échanger les tampons
-
+		 glutDisplayFunc(Environnement::glutDisplayFuncWrapper);
+			
 		//envPtr = &env;
-		glutSpecialFunc(glutSpecialWrapper);
-		 // Associer un wrapper pour les touches spéciales avec lambda
+		//glutSpecialFunc(glutSpecialWrapper);
+		  env.currentInstance = &env;
+		 glutSpecialFunc(Environnement::specialKeyWrapper);// Associer un wrapper pour les touches spéciales avec lambda
 		
-
 		//glutReshapeFunc(Environnement::redimLab);
+
+		 const int TIMER_MILLIS = 100;
+		 glutTimerFunc(TIMER_MILLIS, Environnement::glutTimerWrapper, 0);
+
+		// glutTimerFunc(TIMER_MILLIS,Environnement::glutTimercWrapper,0);
 		Environnement::loop();
-
-
 
 
 	}

@@ -1,4 +1,5 @@
 #pragma once
+#include<vector> 
 class Wall
 {
 public: 
@@ -12,6 +13,8 @@ public:
 	int getHeight() const;
 	int getWidth()  const;
 	char** getData();
+	std::vector<std::vector<char >> matrice;
+	std::vector<std::vector<char >> getDatav() const;
 
 	//Wall(const Wall& wall);
 
