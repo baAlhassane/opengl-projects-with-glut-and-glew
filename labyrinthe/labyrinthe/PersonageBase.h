@@ -11,6 +11,7 @@ protected:
 	int WIDTH;
 	Environnement& env;
 	std::vector<std::vector<char>> matriceJoueur;
+	
 public:
 	 void moveToUp();
      void moveToDown();
@@ -21,8 +22,12 @@ public:
 	 void setPosC(int x);
 	 void setPosL(int y);
 	PersonageBase(Environnement& envJoueur);
-	virtual ~PersonageBase()=0;
+	virtual ~PersonageBase()=default;
 	virtual void dessinerJoueur(int num)=0;
 	virtual void deplacerEnnemi() = 0; // Méthode purement virtuelle (obligatoire à redéfinir)
+
+	
+
+	
 };
 

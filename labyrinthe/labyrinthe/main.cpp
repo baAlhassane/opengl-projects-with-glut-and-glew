@@ -7,6 +7,7 @@
 #include "environnement/Environnement.h"
 #include "joueur/joueur.h"
 #include "EnnemiVert.h"
+#include "EnnemiRouge.h"
 #include <functional>
 #include<memory>
 
@@ -70,7 +71,7 @@ int main(int argc, char* argv[]) {
 		//env.addJoueure(std::make_unique<EnemiBase>(env));
 		env.addJoueur(std::make_unique<Joueur>(env), 1,6 );  // Premier joueur
 		env.addJoueur(std::make_unique<EnnemiVert>(env),6 , 1);
-		//env.addJoueur(std::move(std::make_unique<EnnemiVert>(env)), 2, 3);
+		env.addJoueur(std::move(std::make_unique<EnnemiRouge>(env)), 2, 3);
 
 		env.iniWindows();
 

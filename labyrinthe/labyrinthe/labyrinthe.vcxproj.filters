@@ -33,6 +33,9 @@
     <ClCompile Include="EnnemiVert.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="EnnemiRouge.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="environnement\Environnement.h">
@@ -48,6 +51,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EnnemiVert.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EnnemiRouge.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

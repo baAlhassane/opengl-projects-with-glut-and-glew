@@ -132,6 +132,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="EnnemiRouge.cpp" />
     <ClCompile Include="EnnemiVert.cpp" />
     <ClCompile Include="environnement\Environnement.cpp" />
     <ClCompile Include="joueur\Joueur.cpp" />
@@ -140,6 +141,7 @@
     <ClCompile Include="wall\Wall.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="EnnemiRouge.h" />
     <ClInclude Include="EnnemiVert.h" />
     <ClInclude Include="environnement\Environnement.h" />
     <ClInclude Include="joueur\Joueur.h" />

@@ -7,7 +7,7 @@
 //class Joueur;
 #include "../PersonageBase.h"
 
-
+enum ENUMTYPE;
 class PersonageBase;
 class Environnement{
 private:
@@ -15,7 +15,7 @@ private:
 	 int HEIGHT;
 	 int WIDTH;
 	 int ExitC; // exit point de sortie
-	 int  ExitL;
+	 int ExitL;
 	 std::vector<std::vector<char>> matrice;
 	 std::unique_ptr<PersonageBase> joueur1;
 	 std::vector<std::unique_ptr<PersonageBase>> joueurs;
@@ -42,6 +42,8 @@ public:
 	 void timer(int v);
 	static void glutTimerWrapper(int v);
 
+	
+
 	void freeMemorybeforeExit();
 	int getHEIGHT() const {
 		return HEIGHT;
@@ -60,6 +62,11 @@ public:
 
 	};
 
+enum ENUMTYPE {
+	JOUEUR,
+	ENNEMIROUGE,
+	ENNEMIVERT
+};
 
 
 

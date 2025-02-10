@@ -12,8 +12,6 @@
 #include<vector>
 EnnemiVert::EnnemiVert(Environnement& envEnemiVert):PersonageBase(envEnemiVert) {
 
-
-
 }
 
 void EnnemiVert::dessinerJoueur(int numero) {

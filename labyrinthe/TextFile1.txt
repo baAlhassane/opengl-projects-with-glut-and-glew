@@ -1,0 +1,31 @@
+
+	//Pour les listes chainees 
+	PersonageBase* firstElemnt = nullptr;
+	PersonageBase* nextElement= nullptr;
+
+
+	PersonageBase* getHead() const {
+		return nextElement;
+	};
+
+	
+	void setNext(PersonageBase* ptr) {
+		nextElement = ptr;
+	}
+
+	void addToPointeur(ENUMTYPE enumType, int poosc, int posL);
+
+
+
+
+	
+void Environnement::addToPointeur(ENUMTYPE enumType, int poosc, int posL) {
+	PersonageBase *p = nullptr;
+
+	switch (enumType) {
+	case JOUEUR:        p = new Joueur(*this);      break;
+	case ENNEMIROUGE :  p = new EnnemiRouge(*this); break;
+	case ENNEMIVERT  :  p = new EnnemiVert(*this);  break;
+	 } 
+
+	nextElement = p;

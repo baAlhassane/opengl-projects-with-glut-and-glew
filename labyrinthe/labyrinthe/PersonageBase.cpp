@@ -87,9 +87,3 @@ void PersonageBase::dessinerJoueur(int numero) {
 }
 
 
-
-
-
-
-PersonageBase::~PersonageBase() {}
-

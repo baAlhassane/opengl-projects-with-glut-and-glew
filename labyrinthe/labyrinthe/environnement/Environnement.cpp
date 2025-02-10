@@ -5,6 +5,7 @@
 #include<vector>
 #include "Environnement.h"
 #include "../EnnemiVert.h"
+#include "../EnnemiRouge.h"
 
 
 
@@ -239,4 +240,8 @@ void Environnement::redimLab(int x, int y){
 	glLoadIdentity();
 	gluOrtho2D(0.0, (double)WIDTH, (double)HEIGHT, 0.0);
 }
+
+
+
+
 
