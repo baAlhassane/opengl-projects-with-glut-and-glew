@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include <vector>
+#include<list>
 #include "../wall/Wall.h"
 #include "Environnement.h"
 #include "../joueur/Joueur.h"
@@ -18,7 +19,8 @@ private:
 	 int ExitL;
 	 std::vector<std::vector<char>> matrice;
 	 std::unique_ptr<PersonageBase> joueur1;
-	 std::vector<std::unique_ptr<PersonageBase>> joueurs;
+	 //std::vector<std::unique_ptr<PersonageBase>> joueurs;
+	 std::list<std::unique_ptr<PersonageBase>> joueurs;
 	 static int TIMER_MILLIS;
 		
 		 
@@ -41,7 +43,8 @@ public:
 	static void glutDisplayFuncWrapper();
 	 void timer(int v);
 	static void glutTimerWrapper(int v);
-
+	void addToPointeur(ENUMTYPE enumType, int poosc, int posL);
+	void removeJoueur(PersonageBase* joueur);
 	
 
 	void freeMemorybeforeExit();

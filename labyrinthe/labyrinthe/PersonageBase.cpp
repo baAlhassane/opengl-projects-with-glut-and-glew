@@ -86,4 +86,12 @@ void PersonageBase::dessinerJoueur(int numero) {
 
 }
 
+PersonageBase* PersonageBase::getSuivant() const {
+	return suivant;
+}
+
+
+void PersonageBase::setSuivant(PersonageBase* p) {
+	suivant = p;
+}
 

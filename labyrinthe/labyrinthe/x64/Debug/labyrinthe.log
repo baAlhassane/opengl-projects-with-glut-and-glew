@@ -1,7 +1,2 @@
-﻿  Environnement.cpp
-  Joueur.cpp
-C:\Users\alhas\Documents\opengl\firstFreeglutSolution\labyrinthe\labyrinthe\joueur\Joueur.cpp(36,36): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-C:\Users\alhas\Documents\opengl\firstFreeglutSolution\labyrinthe\labyrinthe\joueur\Joueur.cpp(36,24): warning C4244: 'argument': conversion from 'double' to 'GLfloat', possible loss of data
-  main.cpp
-  Generating Code...
+﻿  main.cpp
   labyrinthe.vcxproj -> C:\Users\alhas\Documents\opengl\firstFreeglutSolution\labyrinthe\x64\Debug\labyrinthe.exe

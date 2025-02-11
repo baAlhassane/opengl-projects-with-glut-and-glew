@@ -11,6 +11,7 @@ protected:
 	int WIDTH;
 	Environnement& env;
 	std::vector<std::vector<char>> matriceJoueur;
+	PersonageBase* suivant;
 	
 public:
 	 void moveToUp();
@@ -25,6 +26,9 @@ public:
 	virtual ~PersonageBase()=default;
 	virtual void dessinerJoueur(int num)=0;
 	virtual void deplacerEnnemi() = 0; // Méthode purement virtuelle (obligatoire à redéfinir)
+	PersonageBase* getSuivant() const;
+	void setSuivant(PersonageBase* p);
+	void removeJoueur(PersonageBase* joueur);
 
 	
 

@@ -7,7 +7,7 @@
 #include "../EnnemiVert.h"
 #include "../EnnemiRouge.h"
 
-
+#include<iterator>
 
 void Environnement::iniWindows() {
   
@@ -147,6 +147,15 @@ void Environnement::testVictoire() {
 		}
 	}
 }
+/*
+	// Obtenir le joueur actif
+	//auto& personnageActif = joueurs[indexJoueurActif];
+	auto it = std::next(joueurs.begin(), indexJoueurActif);
+	auto personnageActif = it->get();
+	//auto it = std::next(joueurs.begin(), index);  // Retourne un itérateur avancé de 'index' positions
+	if (auto ptrJoueur = dynamic_cast<Joueur*>(personnageActif)) {
+*/
+
 
 
 void Environnement::specialKeyPressed(int key, int x, int y) {
@@ -154,8 +163,16 @@ void Environnement::specialKeyPressed(int key, int x, int y) {
 	std::cout << "Touche appuyée: " << key << std::endl;
 	std::cout << "Touche appuyée : (x,y) = " << x <<" , "  << y << std::endl;
 	// Obtenir le joueur actif
-	auto& personnageActif = joueurs[indexJoueurActif];
+/*   
+	auto& personnageActif = joueurs[indexJoueurActif];// ici retourne un std::unique_ptr<PersonageBase>&
 	if (auto ptrJoueur = dynamic_cast<Joueur*>(personnageActif.get())) {
+	*/
+	
+  //auto& personnageActif = joueurs[indexJoueurActif];
+	auto it = std::next(joueurs.begin(), indexJoueurActif);
+	auto personnageActif = it->get();
+	//auto it = std::next(joueurs.begin(), index);  // Retourne un itérateur avancé de 'index' positions
+	if (auto ptrJoueur = dynamic_cast<Joueur*>(personnageActif)) {
 		std::cout << "C'est un Joueur !" << std::endl;
 		switch (key) {
 		case GLUT_KEY_UP:  personnageActif->moveToUp(); break;
@@ -242,6 +259,24 @@ void Environnement::redimLab(int x, int y){
 }
 
 
+void Environnement::addToPointeur(ENUMTYPE enumType, int poosc, int posL) {
+	//PersonageBase* p = nullptr;
+	std::unique_ptr<PersonageBase> p = nullptr;
 
+	switch (enumType) {
+	case JOUEUR:       p = std::make_unique<Joueur>(*this);      break;
+	case ENNEMIROUGE:  p = std::make_unique<EnnemiRouge>(*this); break;
+	case ENNEMIVERT:   p = std::make_unique<EnnemiVert>(*this);  break;
+	}
+	joueurs.push_back(std::move(p));
 
+}
 
+void Environnement::removeJoueur(PersonageBase* joueur) {
+	for (auto it = joueurs.begin(); it != joueurs.end(); ++it) {
+		if (it->get() == joueur) {  // Comparer les pointeurs bruts
+			joueurs.erase(it);  // Supprime l'élément de la liste
+			break;  // Sortir de la boucle
+		}
+	}
+}

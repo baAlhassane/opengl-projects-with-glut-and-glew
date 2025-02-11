@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
 		Environnement env(wall);
 		//Joueur joueur1
 		
-		
+	  
 		env.addJoueur(std::make_unique<Joueur>(env), 1, 0);  // Premier joueur
 		env.addJoueur(std::make_unique<Joueur>(env), 3, 5);  // Deuxième joueur, position différente
 		env.addJoueur(std::make_unique<Joueur>(env),5 , 4);
@@ -72,6 +72,14 @@ int main(int argc, char* argv[]) {
 		env.addJoueur(std::make_unique<Joueur>(env), 1,6 );  // Premier joueur
 		env.addJoueur(std::make_unique<EnnemiVert>(env),6 , 1);
 		env.addJoueur(std::move(std::make_unique<EnnemiRouge>(env)), 2, 3);
+		
+		std::unique_ptr<Joueur> joueur = std::make_unique<Joueur>(env);
+		auto ptr = joueur.get();// utile pour le remove; Car apres move on le pert
+		env.addJoueur(std::move(joueur), 4, 4);
+		env.removeJoueur(ptr);
+		
+		
+
 
 		env.iniWindows();
 
